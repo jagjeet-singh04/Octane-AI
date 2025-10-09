@@ -4,17 +4,18 @@ import { HeroParallax } from "../ui/hero-parallax.jsx";
 export function Products() {
   const products = [
     {
-      title: "ThinkCode",
-      link: "/thinkcode",
-      thumbnail: "/thinkcode-demo.png",
-      description: "AI-powered coding platform"
-    },
-    {
       title: "AI Resume Builder",
       link: "/ai-resume",
       thumbnail: "/ai-resume-demo.png",
       description: "Create perfect resumes with AI"
     },
+    {
+      title: "ThinkCode",
+      link: "/thinkcode",
+      thumbnail: "/thinkcode-demo.png",
+      description: "AI-powered coding platform"
+    },
+    
     {
       title: "AI Interview Helper",
       link: "/ai-interview",
@@ -40,17 +41,18 @@ export function Products() {
       description: "Build stunning portfolios"
     },
     {
-      title: "ThinkCode",
-      link: "/thinkcode",
-      thumbnail: "/thinkcode-demo.png",
-      description: "AI-powered coding platform"
-    },
-    {
       title: "AI Resume Builder",
       link: "/ai-resume",
       thumbnail: "/ai-resume-demo.png",
       description: "Create perfect resumes with AI"
     },
+    {
+      title: "ThinkCode",
+      link: "/thinkcode",
+      thumbnail: "/thinkcode-demo.png",
+      description: "AI-powered coding platform"
+    },
+    
     {
       title: "AI Interview Helper",
       link: "/ai-interview",

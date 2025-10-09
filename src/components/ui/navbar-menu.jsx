@@ -16,7 +16,9 @@ export function HoveredLink({ href = "#", children, className = "" }) {
 // Basic container for the top-level menu bar
 export function Menu({ children }) {
 	return (
-		<nav className="flex items-center gap-6 rounded-full bg-white/5 backdrop-blur px-4 py-2 border border-white/10 shadow-lg">
+		<nav
+			className="flex flex-col md:flex-row items-stretch md:items-center gap-2 md:gap-6 w-full md:w-auto rounded-xl md:rounded-full bg-transparent md:bg-white/5 backdrop-blur px-2 py-2 md:px-4 md:py-2 border md:border-white/10 md:shadow-lg"
+		>
 			{children}
 		</nav>
 	);
@@ -34,18 +36,21 @@ export function MenuItem({ item, children, active, setActive }) {
 			onBlur={() => setActive?.(null)}
 		>
 			<button
-				className={`px-3 py-1.5 text-sm font-medium rounded-full transition-colors ${
+				className={`w-full md:w-auto text-left md:text-center px-3 py-2 text-sm font-medium rounded-lg md:rounded-full transition-colors ${
 					isOpen ? "bg-white text-black" : "text-gray-200 hover:text-white hover:bg-white/10"
 				}`}
 				type="button"
 				aria-expanded={isOpen}
 				aria-haspopup="true"
+				onClick={() => setActive?.(isOpen ? null : item)}
 			>
 				{item}
 			</button>
 
 			{isOpen && (
-				<div className="absolute left-1/2 top-full z-50 mt-3 -translate-x-1/2 min-w-[220px] rounded-xl border border-white/10 bg-black/80 backdrop-blur px-4 py-4 shadow-2xl">
+				<div
+					className="z-50 mt-2 md:mt-3 md:absolute md:left-1/2 md:top-full md:-translate-x-1/2 w-full md:w-auto min-w-[220px] rounded-lg md:rounded-xl border border-white/10 bg-black/60 md:bg-black/80 backdrop-blur px-3 py-3 md:px-4 md:py-4 shadow-lg md:shadow-2xl"
+				>
 					{children}
 				</div>
 			)}
