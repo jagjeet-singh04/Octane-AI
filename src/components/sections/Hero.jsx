@@ -159,7 +159,7 @@ export function Hero() {
                 />
               ))}
             </div>
-            <span>Join 10,000+ Developers</span>
+            <span>Join 500+ Developers</span>
           </div>
           
           <div className="hidden sm:block w-px h-6 bg-gray-600" />
@@ -168,7 +168,7 @@ export function Hero() {
             <div className="flex text-yellow-400">
               {"★".repeat(5)}
             </div>
-            <span>Rated 4.9/5 by developers</span>
+            <span>Rated 4.5/5 by developers</span>
           </div>
         </motion.div>
 
@@ -190,7 +190,7 @@ export function Hero() {
           transition={{ duration: 2, repeat: Infinity }}
           className="flex flex-col items-center gap-2 text-gray-400 select-none"
         >
-          <span className="text-sm">Explore Products</span>
+          <span className="text-sm">Explore Features</span>
           <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
             <motion.div
               animate={{ y: [0, 12, 0] }}

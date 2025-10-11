@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { motion, useInView } from "motion/react";
 import {
   IconCode,
   IconFileText,
@@ -11,6 +10,7 @@ import {
   IconUsers
 } from "@tabler/icons-react";
 import { BackgroundGradient } from "../ui/background-gradient";
+import { HeroParallax } from "../ui/hero-parallax.jsx";
 
 const features = [
   {
@@ -79,212 +79,74 @@ const features = [
   }
 ];
 
-function FeatureCard({ title, description, Icon, stats, gradient, delay, index }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.6, delay }}
-      className="relative group"
-    >
-      <BackgroundGradient
-        containerClassName="h-full rounded-2xl"
-        className="h-full rounded-2xl p-6 bg-gray-900/90 backdrop-blur-sm border border-white/10"
-        animate={true}
-      >
-        {/* Subtle hover tint over the card content */}
-        <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-40 transition-opacity duration-300`} />
-        
-        {/* Content */}
-        <div className="relative z-10">
-          {/* Icon with gradient background */}
-          <motion.div whileHover={{ scale: 1.05 }} className="relative mb-6">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-white/5 blur-lg rounded-2xl" />
-            <div className="relative w-14 h-14 bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <Icon className="h-7 w-7 text-white" />
-            </div>
-          </motion.div>
-
-          {/* Feature index (subtle badge) */}
-          <div className="absolute top-6 right-6">
-            <div className="px-2 py-1 rounded-full text-[10px] font-semibold text-neutral-300 bg-white/5 border border-white/10">
-              0{index + 1}
-            </div>
-          </div>
-
-          {/* Title and description */}
-          <h3 className="text-xl font-semibold text-white mb-3 transition-colors group-hover:text-neutral-100">
-            {title}
-          </h3>
-          
-          <p className="text-neutral-300 text-sm leading-relaxed mb-4">
-            {description}
-          </p>
-
-          {/* Stats badge */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-            transition={{ duration: 0.4, delay: delay + 0.4 }}
-            className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10"
-          >
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-xs font-medium text-green-400">{stats}</span>
-          </motion.div>
-
-          {/* Hover arrow */}
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            whileHover={{ opacity: 1, x: 0 }}
-            className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300"
-          >
-            <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Glow effect on hover */}
-        <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 blur-xl" />
-      </BackgroundGradient>
-    </motion.div>
-  );
-}
+// FeatureCard grid implementation removed in favor of parallax rendering
 
 export function Features() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  // Convert features into items for parallax; include a thumbnail-like visual built from the feature card styling
+  const items = features.map((f) => ({ ...f, id: f.title }));
+
+  const header = (
+    <div className="max-w-7xl relative mx-auto py-20 md:py-32 px-4 w-full left-0 top-0">
+      <div className="text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-6">
+          <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+          <span className="text-sm font-medium text-blue-400">AI-Powered Platform</span>
+        </div>
+        <h2 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-4">
+          Built for <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">Developers</span>
+        </h2>
+        <p className="text-lg md:text-xl text-neutral-300 max-w-3xl mx-auto">
+          Experience the future of developer tools — now flowing in a smooth parallax.
+        </p>
+      </div>
+    </div>
+  );
 
   return (
-    <section ref={ref} className="relative py-20 md:py-32 overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black" />
-      
-      {/* Animated grid pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <div 
+    <section ref={ref} id="features" className="relative">
+      {/* Background fades to transparent at the bottom to blend into footer */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black via-gray-900 to-transparent" />
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 25px 25px, rgba(255,255,255,0.3) 2%, transparent 0%), 
-                             radial-gradient(circle at 75px 75px, rgba(255,255,255,0.2) 2%, transparent 0%)`,
-            backgroundSize: '100px 100px',
+            backgroundImage: `radial-gradient(circle at 25px 25px, rgba(255,255,255,0.3) 2%, transparent 0%), radial-gradient(circle at 75px 75px, rgba(255,255,255,0.2) 2%, transparent 0%)`,
+            backgroundSize: "100px 100px",
+            WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0))",
+            maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0))",
           }}
         />
       </div>
-
-      <div className="relative z-10 mx-auto max-w-7xl px-4">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-6"
-          >
-            <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-blue-400">AI-Powered Platform</span>
-          </motion.div>
-
-          <h2 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-6">
-            Built for <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">Developers</span>
-          </h2>
-          
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl text-neutral-300 max-w-3xl mx-auto leading-relaxed"
-          >
-            Experience the future of developer tools with our comprehensive suite of AI-powered solutions designed to accelerate your career growth and coding excellence.
-          </motion.p>
-
-          {/* Stats row */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap justify-center gap-8 mt-12"
-          >
-            {[ 
-              { number: "10K+", label: "Active Developers" },
-              { number: "98%", label: "Success Rate" },
-              { number: "4.9★", label: "Rating" },
-              { number: "2.5x", label: "Faster Growth" }
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-white mb-1">
-                  {stat.number}
-                </div>
-                <div className="text-sm text-neutral-400">
-                  {stat.label}
-                </div>
+      <div className="relative z-10">
+        <HeroParallax
+          items={items}
+          header={header}
+          renderItem={(item) => (
+            <a href="#features" className="block h-full w-full">
+              <div className="absolute inset-0">
+                <BackgroundGradient
+                  containerClassName="h-full w-full rounded-xl"
+                  className={`h-full w-full rounded-xl p-6 bg-gray-900/80 backdrop-blur-sm border border-white/10 flex flex-col justify-end`}
+                >
+                  <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${item.gradient} opacity-20`} />
+                  <div className="relative z-10">
+                    <div className="mb-4">
+                      <item.Icon className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                    <p className="text-neutral-300 text-sm mt-2 line-clamp-2">{item.description}</p>
+                    <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                      <div className="w-2 h-2 bg-green-400 rounded-full" />
+                      <span className="text-xs font-medium text-green-400">{item.stats}</span>
+                    </div>
+                  </div>
+                </BackgroundGradient>
               </div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        {/* Features grid */}
-        <motion.div
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {features.map((feature, index) => (
-            <FeatureCard
-              key={feature.title}
-              {...feature}
-              index={index}
-            />
-          ))}
-        </motion.div>
-
-        {/* CTA section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="text-center mt-16"
-        >
-          <BackgroundGradient
-            containerClassName="rounded-2xl max-w-2xl mx-auto"
-            className="rounded-2xl p-8 bg-gray-900/80 backdrop-blur-sm border border-white/10"
-          >
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              Ready to Supercharge Your Career?
-            </h3>
-            <p className="text-neutral-300 mb-6 max-w-md mx-auto">
-              Join thousands of developers already accelerating their growth with Octane AI.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl font-semibold text-white shadow-lg shadow-blue-500/25"
-              >
-                Start Free Trial
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl font-semibold text-white hover:bg-white/20 transition-colors"
-              >
-                View All Features
-              </motion.button>
-            </div>
-          </BackgroundGradient>
-        </motion.div>
+            </a>
+          )}
+        />
       </div>
     </section>
   );

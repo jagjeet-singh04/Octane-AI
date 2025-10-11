@@ -2,14 +2,24 @@
 import React from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 
+const MDiv = motion.div;
+
 
 
 export const HeroParallax = ({
-  products
+  // Backward-compat: original API used `products`
+  products,
+  // New generic API
+  items,
+  renderItem,
+  // Header controls
+  header,
+  showHeader = true,
 }) => {
-  const firstRow = products.slice(0, 5);
-  const secondRow = products.slice(5, 10);
-  const thirdRow = products.slice(10, 15);
+  const data = (items ?? products ?? []).slice(0, 15);
+  const firstRow = data.slice(0, 5);
+  const secondRow = data.slice(5, 10);
+  const thirdRow = data.slice(10, 15);
   const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -28,8 +38,8 @@ export const HeroParallax = ({
     <div
       ref={ref}
       className="h-[300vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]">
-      <Header />
-      <motion.div
+      {showHeader ? (header ? header : <Header />) : null}
+      <MDiv
         style={{
           rotateX,
           rotateZ,
@@ -37,22 +47,46 @@ export const HeroParallax = ({
           opacity,
         }}
         className="">
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
-          {firstRow.map((product) => (
-            <ProductCard product={product} translate={translateX} key={product.title} />
+        <MDiv className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
+          {firstRow.map((item, idx) => (
+            renderItem ? (
+              <ParallaxItem key={(item && (item.key || item.id || item.title)) ?? `item-1-${idx}`}
+                translate={translateX}
+              >
+                {renderItem(item, idx)}
+              </ParallaxItem>
+            ) : (
+              <ProductCard product={item} translate={translateX} key={(item && item.title) ?? `product-1-${idx}`} />
+            )
           ))}
-        </motion.div>
-        <motion.div className="flex flex-row  mb-20 space-x-20 ">
-          {secondRow.map((product) => (
-            <ProductCard product={product} translate={translateXReverse} key={product.title} />
+        </MDiv>
+        <MDiv className="flex flex-row  mb-20 space-x-20 ">
+          {secondRow.map((item, idx) => (
+            renderItem ? (
+              <ParallaxItem key={(item && (item.key || item.id || item.title)) ?? `item-2-${idx}`}
+                translate={translateXReverse}
+              >
+                {renderItem(item, idx + firstRow.length)}
+              </ParallaxItem>
+            ) : (
+              <ProductCard product={item} translate={translateXReverse} key={(item && item.title) ?? `product-2-${idx}`} />
+            )
           ))}
-        </motion.div>
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20">
-          {thirdRow.map((product) => (
-            <ProductCard product={product} translate={translateX} key={product.title} />
+        </MDiv>
+        <MDiv className="flex flex-row-reverse space-x-reverse space-x-20">
+          {thirdRow.map((item, idx) => (
+            renderItem ? (
+              <ParallaxItem key={(item && (item.key || item.id || item.title)) ?? `item-3-${idx}`}
+                translate={translateX}
+              >
+                {renderItem(item, idx + firstRow.length + secondRow.length)}
+              </ParallaxItem>
+            ) : (
+              <ProductCard product={item} translate={translateX} key={(item && item.title) ?? `product-3-${idx}`} />
+            )
           ))}
-        </motion.div>
-      </motion.div>
+        </MDiv>
+      </MDiv>
     </div>
   );
 };
@@ -62,14 +96,26 @@ export const Header = () => {
     <div
       className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
       <h1 className="text-2xl md:text-7xl font-bold text-white">
-        The Ultimate <br /> development studio
+        The Ultimate <br /> Learning studio
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 text-neutral-200">
-        We build beautiful products with the latest technologies and frameworks.
         We are a team of passionate developers and designers that love to build
-        amazing products.
+        amazing products that help you grow in your professional life.
       </p>
     </div>
+  );
+};
+
+// Generic wrapper for custom parallax items to reuse motion + sizing
+export const ParallaxItem = ({ translate, children }) => {
+  return (
+    <MDiv
+      style={{ x: translate }}
+      whileHover={{ y: -20 }}
+      className="group h-96 w-[30rem] relative shrink-0"
+    >
+      {children}
+    </MDiv>
   );
 };
 
@@ -78,7 +124,7 @@ export const ProductCard = ({
   translate
 }) => {
   return (
-    <motion.div
+    <MDiv
       style={{
         x: translate,
       }}
@@ -101,6 +147,6 @@ export const ProductCard = ({
         className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
         {product.title}
       </h2>
-    </motion.div>
+    </MDiv>
   );
 };
