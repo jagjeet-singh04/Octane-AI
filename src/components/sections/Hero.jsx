@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
 import { motion, AnimatePresence } from "motion/react";
+import { useNavigate } from "react-router-dom";
 
 export function Hero() {
   const [currentFeature, setCurrentFeature] = useState(0);
+  const navigate = useNavigate();
 
   const features = [
     "AI-Powered Coding Platform",
@@ -138,8 +140,10 @@ export function Hero() {
             }}
             whileTap={{ scale: 0.95 }}
             className="px-10 py-4 border-2 border-white rounded-2xl font-semibold text-lg transition-all duration-300 group relative overflow-hidden"
+            type="button"
+            onClick={() => navigate("/ai-interview")}
           >
-            <span className="relative z-10"> View Live Demo</span>
+            <span className="relative z-10"> Interview Helper Free for first 50 User </span>
           </motion.button>
         </motion.div>
 

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 
 // Simple anchor that brightens on hover
 export function HoveredLink({ href = "#", children, className = "" }) {
@@ -27,13 +27,47 @@ export function Menu({ children }) {
 // Single menu item with a hover/focus dropdown panel
 export function MenuItem({ item, children, active, setActive }) {
 	const isOpen = active === item;
+	const containerRef = useRef(null);
+	const openTimer = useRef(null);
+	const closeTimer = useRef(null);
+
+	const clearTimers = () => {
+		if (openTimer.current) {
+			clearTimeout(openTimer.current);
+			openTimer.current = null;
+		}
+		if (closeTimer.current) {
+			clearTimeout(closeTimer.current);
+			closeTimer.current = null;
+		}
+	};
+
+	const handleEnter = () => {
+		clearTimers();
+		openTimer.current = setTimeout(() => setActive?.(item), 80);
+	};
+
+	const handleLeave = () => {
+		clearTimers();
+		closeTimer.current = setTimeout(() => setActive?.(null), 160);
+	};
+
+	const handleBlur = (e) => {
+		// Only close if focus leaves the whole container
+		const next = e.relatedTarget;
+		if (!containerRef.current || !next || !containerRef.current.contains(next)) {
+			setActive?.(null);
+		}
+	};
+
 	return (
 		<div
+			ref={containerRef}
 			className="relative"
-			onMouseEnter={() => setActive?.(item)}
-			onMouseLeave={() => setActive?.(null)}
+			onMouseEnter={handleEnter}
+			onMouseLeave={handleLeave}
 			onFocus={() => setActive?.(item)}
-			onBlur={() => setActive?.(null)}
+			onBlur={handleBlur}
 		>
 			<button
 				className={`w-full md:w-auto text-left md:text-center px-3 py-2 text-sm font-medium rounded-lg md:rounded-full transition-colors ${
@@ -49,7 +83,9 @@ export function MenuItem({ item, children, active, setActive }) {
 
 			{isOpen && (
 				<div
-					className="z-50 mt-2 md:mt-3 md:absolute md:left-1/2 md:top-full md:-translate-x-1/2 w-full md:w-auto min-w-[220px] rounded-lg md:rounded-xl border border-white/10 bg-black/60 md:bg-black/80 backdrop-blur px-3 py-3 md:px-4 md:py-4 shadow-lg md:shadow-2xl"
+					className="z-50 mt-2 md:mt-0 md:absolute md:left-1/2 md:top-full md:-translate-x-1/2 w-full md:w-auto min-w-[220px] rounded-lg md:rounded-xl border border-white/10 bg-black/60 md:bg-black/80 backdrop-blur px-3 py-3 md:px-4 md:py-4 shadow-lg md:shadow-2xl"
+					onMouseEnter={handleEnter}
+					onMouseLeave={handleLeave}
 				>
 					{children}
 				</div>
