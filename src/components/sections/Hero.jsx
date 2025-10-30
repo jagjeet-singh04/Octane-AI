@@ -127,8 +127,10 @@ export function Hero() {
             }}
             whileTap={{ scale: 0.95 }}
             className="px-10 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl font-semibold text-lg transition-all duration-300 group relative overflow-hidden"
+            type="button"
+            onClick={() => navigate("/ai-interview")}
           >
-            <span className="relative z-10"> Start Free Trial</span>
+            <span className="relative z-10"> Get For Windows </span>
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </motion.button>
           

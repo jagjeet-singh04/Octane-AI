@@ -36,9 +36,9 @@ export function Footer() {
             © 2025 Octane AI. All rights reserved.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms</a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">Cookies</a>
+            <a href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms</a>
+            <a href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy</a>
+            <a href="/cookies" className="text-gray-400 hover:text-white transition-colors">Cookies</a>
           </div>
         </div>
       </div>

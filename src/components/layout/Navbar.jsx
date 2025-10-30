@@ -17,15 +17,14 @@ export function Navbar() {
       <MenuItem setActive={setActive} active={active} item="Pricing">
         <div className="flex flex-col space-y-4 text-sm">
           <HoveredLink href="/pricing">Individual</HoveredLink>
-          <HoveredLink href="/team-pricing">Teams</HoveredLink>
-          <HoveredLink href="/enterprise">Enterprise</HoveredLink>
+         
         </div>
       </MenuItem>
       <MenuItem setActive={setActive} active={active} item="Company">
         <div className="flex flex-col space-y-4 text-sm">
-          <HoveredLink href="/about">About</HoveredLink>
-          <HoveredLink href="/contact">Contact</HoveredLink>
-          <HoveredLink href="/careers">Careers</HoveredLink>
+          <HoveredLink href="/About">About</HoveredLink>
+          <HoveredLink href="/Contact">Contact</HoveredLink>
+          <HoveredLink href="/Careers">Careers</HoveredLink>
         </div>
       </MenuItem>
     </>
@@ -55,12 +54,7 @@ export function Navbar() {
             >
               Menu
             </button>
-            <a
-              href="/login"
-              className="text-sm rounded-full border border-white/20 px-3 py-1.5 text-white hover:bg-white/10"
-            >
-              Login
-            </a>
+            
           </div>
         </div>
         {mobileOpen && (
