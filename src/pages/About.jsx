@@ -380,7 +380,7 @@ export default function AboutPage() {
                 
                 <div className="flex flex-wrap justify-center gap-4">
                   <a 
-                    href="https://www.mediafire.com/file/bn0vo1xmakrpl6v/Octane-AI-Interview-Kit.zip/file" 
+                    href="https://www.mediafire.com/file/kmqnqwixacug6le/Octane-AI-Interview-Kit.zip/file" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 rounded-2xl font-semibold shadow-lg transform hover:-translate-y-0.5 transition"

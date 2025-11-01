@@ -140,7 +140,7 @@ export default function InterviewHelper() {
                 </motion.p>
 
                 <motion.div variants={fadeUp} className="flex items-center gap-4 flex-wrap">
-                  <a href="https://www.mediafire.com/file/bn0vo1xmakrpl6v/Octane-AI-Interview-Kit.zip/file" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 rounded-2xl font-semibold shadow-lg transform hover:-translate-y-0.5 transition">
+                  <a href="https://www.mediafire.com/file/kmqnqwixacug6le/Octane-AI-Interview-Kit.zip/file" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 rounded-2xl font-semibold shadow-lg transform hover:-translate-y-0.5 transition">
                     <DownloadIcon className="w-5 h-5" />
                     <span>Download Resources</span>
                   </a>
@@ -202,7 +202,7 @@ export default function InterviewHelper() {
                     ))}
                   </div>
 
-                  <a href="https://www.mediafire.com/file/bn0vo1xmakrpl6v/Octane-AI-Interview-Kit.zip/file" target="_blank" rel="noopener noreferrer" className="block mt-2">
+                  <a href="https://www.mediafire.com/file/kmqnqwixacug6le/Octane-AI-Interview-Kit.zip/file" target="_blank" rel="noopener noreferrer" className="block mt-2">
                     <div className="rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-3 text-center font-semibold shadow hover:shadow-2xl transition transform hover:-translate-y-0.5">
                       <div className="flex items-center justify-center gap-3">
                         <DownloadIcon className="w-4 h-4" />

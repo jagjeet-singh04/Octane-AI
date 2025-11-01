@@ -41,7 +41,7 @@ export default function PricingPage() {
       popular: false,
       featured: true,
       cta: "Get Started Free",
-  href: "https://www.mediafire.com/file/bn0vo1xmakrpl6v/Octane-AI-Interview-Kit.zip/file",
+  href: "https://www.mediafire.com/file/kmqnqwixacug6le/Octane-AI-Interview-Kit.zip/file",
       features: [
         "Full access to Interview Helper",
         "Screen capture & AI explanations",
@@ -502,7 +502,7 @@ export default function PricingPage() {
                 
                 <div className="flex flex-wrap justify-center gap-4">
                   <a 
-                    href="https://www.mediafire.com/file/bn0vo1xmakrpl6v/Octane-AI-Interview-Kit.zip/file"
+                    href="https://www.mediafire.com/file/kmqnqwixacug6le/Octane-AI-Interview-Kit.zip/file"
                     className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 rounded-2xl font-semibold shadow-lg transform hover:-translate-y-0.5 transition"
                   >
                     <DownloadIcon className="w-5 h-5" />
