@@ -41,7 +41,7 @@ export default function PricingPage() {
       popular: false,
       featured: true,
       cta: "Get Started Free",
-      href: "https://www.mediafire.com/file/ifddbxmnvmu8mwf/Octane-AI-Interview-Kit.zip/file",
+  href: "https://www.mediafire.com/file/u80gn27vo69qg13/Octane-AI-Interview-kit.zip/file",
       features: [
         "Full access to Interview Helper",
         "Screen capture & AI explanations",

@@ -202,7 +202,7 @@ export default function InterviewHelper() {
                     ))}
                   </div>
 
-                  <a href="https://www.mediafire.com/file/ifddbxmnvmu8mwf/Octane-AI-Interview-Kit.zip/file" target="_blank" rel="noopener noreferrer" className="block mt-2">
+                  <a href="https://www.mediafire.com/file/u80gn27vo69qg13/Octane-AI-Interview-kit.zip/file" target="_blank" rel="noopener noreferrer" className="block mt-2">
                     <div className="rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-3 text-center font-semibold shadow hover:shadow-2xl transition transform hover:-translate-y-0.5">
                       <div className="flex items-center justify-center gap-3">
                         <DownloadIcon className="w-4 h-4" />
