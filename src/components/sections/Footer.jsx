@@ -11,7 +11,7 @@ export function Footer() {
               Empowering developers with AI-powered tools to accelerate career growth and coding excellence.
             </p>
           </div>
-          
+
           <div>
             <h4 className="text-white font-semibold mb-4">Products</h4>
             <ul className="space-y-2 text-gray-400">
@@ -20,15 +20,19 @@ export function Footer() {
               <li><a href="/ai-interview" className="hover:text-white transition-colors">AI Interview Helper</a></li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="text-white font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-gray-400">
               <li><a href="/about" className="hover:text-white transition-colors">About</a></li>
               <li><a href="/careers" className="hover:text-white transition-colors">Careers</a></li>
               <li><a href="/contact" className="hover:text-white transition-colors">Contact</a></li>
+              <li><a href="/how-to-use" className="hover:text-white transition-colors">How to Use</a></li>
+              <li><a href="/license" className="hover:text-white transition-colors">License Generator</a></li>
             </ul>
           </div>
+          
+          
         </div>
         
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">

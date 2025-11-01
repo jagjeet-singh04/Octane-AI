@@ -22,11 +22,13 @@ export function Navbar() {
       </MenuItem>
       <MenuItem setActive={setActive} active={active} item="Company">
         <div className="flex flex-col space-y-4 text-sm">
-          <HoveredLink href="/About">About</HoveredLink>
-          <HoveredLink href="/Contact">Contact</HoveredLink>
-          <HoveredLink href="/Careers">Careers</HoveredLink>
+          <HoveredLink href="/about">About</HoveredLink>
+          <HoveredLink href="/contact">Contact</HoveredLink>
+          <HoveredLink href="/careers">Careers</HoveredLink>
         </div>
       </MenuItem>
+      {/* Explicit top-level link (not under any dropdown) */}
+      <HoveredLink href="/license">Get License key</HoveredLink>
     </>
   );
 

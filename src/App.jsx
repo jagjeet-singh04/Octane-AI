@@ -16,6 +16,7 @@ import Careers from './pages/Careers.jsx'
 import Terms from './pages/Terms.jsx'
 import Privacy from './pages/Privacy.jsx'
 import Cookies from './pages/Cookies.jsx'
+import LicenseGenerator from './pages/LicenseGenerator.jsx'
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/careers" element={<Careers />} />
+        <Route path="/license" element={<LicenseGenerator />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/cookies" element={<Cookies />} />

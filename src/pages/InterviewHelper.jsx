@@ -25,7 +25,8 @@ import {
   TargetIcon,
   BrainIcon,
   MenuIcon,
-  XIcon
+  XIcon,
+  KeyIcon
 } from "lucide-react";
 
 export default function InterviewHelper() {
@@ -138,13 +139,18 @@ export default function InterviewHelper() {
                   A modern toolkit crafted for engineers preparing for interviews. Real-time assistance, curated resources, and enterprise-grade security — all in one place.
                 </motion.p>
 
-                <motion.div variants={fadeUp} className="flex items-center gap-4">
+                <motion.div variants={fadeUp} className="flex items-center gap-4 flex-wrap">
                   <a href="https://www.mediafire.com/file/ifddbxmnvmu8mwf/Octane-AI-Interview-Kit.zip/file" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 rounded-2xl font-semibold shadow-lg transform hover:-translate-y-0.5 transition">
                     <DownloadIcon className="w-5 h-5" />
                     <span>Download Resources</span>
                   </a>
 
                   <Link to="/how-to-use" className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/6 border border-white/10 font-semibold hover:bg-white/8 transition">How to Use ?</Link>
+
+                  <Link to="/license" className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 font-semibold shadow-lg transform hover:-translate-y-0.5 transition">
+                    <KeyIcon className="w-5 h-5" />
+                    <span>Get License Key</span>
+                  </Link>
                 </motion.div>
 
                 <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mt-6">
