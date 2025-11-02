@@ -4,60 +4,34 @@ import { CardSpotlight } from "../components/ui/card-spotlight.jsx";
 import { motion } from "framer-motion";
 // Lint guard: keep a reference so strict unused-var rule (allowing ONLY UPPERCASE) doesn't flag the import
 const MOTION = motion;
-import CryptoJS from "crypto-js";
-import { KeyIcon, ShieldIcon, CopyIcon, CheckCircleIcon, AlertCircleIcon } from "lucide-react";
+import { KeyIcon, ShieldIcon, CopyIcon, CheckCircleIcon, AlertCircleIcon, MailIcon } from "lucide-react";
 
 export default function LicenseGenerator() {
   const [tempKey, setTempKey] = useState("");
-  const [finalKey, setFinalKey] = useState("");
   const [copied, setCopied] = useState(false);
 
   const fadeUp = { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } };
   const stagger = { visible: { transition: { staggerChildren: 0.08 } } };
 
-  // Mildly obfuscated secret (remember: do NOT rely on frontend secrecy)
-  const secret = useMemo(() => {
+  const handleCopyTemp = async () => {
+    if (!tempKey) return;
     try {
-      const p1 = "T0NUQU5F"; // "OCTANE"
-      const p2 = "X0FJX1NFQ1JFVF9TQUxU"; // "_AI_SECRET_SALT"
-      // atob is available in browsers
-      return atob(p1) + atob(p2);
-    } catch {
-      // Fallback (non-obfuscated)
-      return "OCTANE_AI_SECRET_SALT";
-    }
-  }, []);
-
-  const cleanTempKey = (value) => value.toUpperCase().replace(/[^A-Z0-9]/g, "");
-
-  const formatGroups = (value) =>
-    value
-      .toUpperCase()
-      .replace(/[^A-Z0-9]/g, "")
-      .match(/.{1,4}/g)
-      ?.join("-") ?? value;
-
-  const generateLicense = () => {
-    const raw = cleanTempKey(tempKey);
-    if (!raw) {
-      setFinalKey("");
-      return;
-    }
-    const hash = CryptoJS.SHA256(raw + secret).toString();
-    const license = hash.substring(0, 16).toUpperCase();
-    setFinalKey(formatGroups(license));
-  };
-
-  const handleCopy = async () => {
-    if (!finalKey) return;
-    try {
-      await navigator.clipboard.writeText(finalKey);
+      await navigator.clipboard.writeText(tempKey);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
       setCopied(false);
     }
   };
+
+  // Prefill email to admin with the pasted TEMP KEY
+  const mailtoHref = useMemo(() => {
+    const subject = encodeURIComponent("License Request - Octane AI");
+    const body = encodeURIComponent(
+      `Hello Admin,\n\nPlease generate a FINAL LICENSE KEY for this device.\n\nTEMP KEY: ${tempKey || "<paste your TEMP KEY here>"}\n\nThanks!`
+    );
+    return `mailto:jagjeetsingh0424@gmail.com?subject=${subject}&body=${body}`;
+  }, [tempKey]);
 
   return (
     <div className="min-h-screen relative overflow-hidden text-white selection:bg-blue-500/40 selection:text-white">
@@ -86,10 +60,10 @@ export default function LicenseGenerator() {
               <span className="text-sm font-semibold text-blue-200">Device-Bound Licensing</span>
             </motion.div>
             <motion.h1 variants={fadeUp} className="text-4xl font-extrabold tracking-tight leading-tight">
-              Octane AI License Generator
+              License Activation
             </motion.h1>
             <motion.p variants={fadeUp} className="text-gray-200 mt-2">
-              Paste the TEMP KEY from your app to generate a device-specific FINAL LICENSE KEY.
+              License keys are issued by the administrator. Paste your TEMP KEY and contact admin to receive your FINAL KEY.
             </motion.p>
           </motion.div>
 
@@ -106,39 +80,32 @@ export default function LicenseGenerator() {
                   className="flex-1 rounded-xl bg-black/40 border border-white/10 px-4 py-3 outline-none focus:border-blue-400/40"
                 />
                 <button
-                  onClick={generateLicense}
-                  className="px-5 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 font-semibold"
+                  onClick={handleCopyTemp}
+                  className="px-5 py-3 rounded-xl bg-white/10 border border-white/15 font-semibold"
+                  disabled={!tempKey}
+                  title={!tempKey ? "Paste TEMP KEY first" : "Copy TEMP KEY"}
                 >
-                  Generate
+                  {copied ? (
+                    <span className="inline-flex items-center gap-2 text-green-300"><CheckCircleIcon className="w-4 h-4" /> Copied</span>
+                  ) : (
+                    <span className="inline-flex items-center gap-2"><CopyIcon className="w-4 h-4" /> Copy TEMP KEY</span>
+                  )}
                 </button>
               </div>
-
-              <div className="mt-6">
-                <div className="flex items-center justify-between mb-2">
-                  <label className="block text-sm font-semibold">Final License Key</label>
-                  <button
-                    onClick={handleCopy}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 border border-white/15 text-sm"
-                    disabled={!finalKey}
-                  >
-                    {copied ? <CheckCircleIcon className="w-4 h-4 text-green-400" /> : <CopyIcon className="w-4 h-4" />}
-                    {copied ? "Copied" : "Copy"}
-                  </button>
-                </div>
-                <div className="rounded-xl bg-black/40 border border-white/10 p-4 font-mono tracking-widest text-lg select-all min-h-[56px] flex items-center">
-                  {finalKey || <span className="text-gray-400">—</span>}
-                </div>
-
-                <div className="mt-4 text-xs text-gray-300 leading-relaxed">
-                  <p className="mb-1">How it works:</p>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>Your app generates a TEMP KEY from device info (MAC/CPU).</li>
-                    <li>This page computes SHA256(TEMP + SECRET) and shows the first 16 chars.</li>
-                    <li>Paste the FINAL KEY back into the app to activate on this device.</li>
-                  </ul>
-                  <div className="flex items-start gap-2 mt-3 text-amber-300/90">
-                    <AlertCircleIcon className="w-4 h-4 mt-0.5" />
-                    <span>This page only formats the key. Real verification must happen in your application.</span>
+              <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/10">
+                <div className="flex items-start gap-3">
+                  <AlertCircleIcon className="w-5 h-5 text-yellow-300 mt-0.5" />
+                  <div>
+                    <div className="font-semibold">Contact Admin to Get Your License</div>
+                    <p className="text-sm text-gray-300 mt-1">License generation is handled by the administrator. Send your TEMP KEY to the admin email, and you will receive your FINAL LICENSE KEY for this device.</p>
+                    <div className="mt-4 flex flex-wrap gap-3">
+                      <a href={mailtoHref} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 font-semibold">
+                        <MailIcon className="w-4 h-4" /> Email Admin
+                      </a>
+                      <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 border border-white/15 text-xs text-gray-200">
+                        <KeyIcon className="w-4 h-4" /> Include your TEMP KEY in the email
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
