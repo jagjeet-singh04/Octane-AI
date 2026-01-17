@@ -61,6 +61,14 @@ export default function AboutPage() {
       contributions: ["Project Lead", "AI Integration", "System Architecture"]
     },
     {
+      name: "Bhavesh Singh",
+      role: "Chief Technology Officer (CTO)",
+      description: "Visionary technology leader driving innovation and technical excellence at Octane AI.",
+      email: "",
+      avatar: "/api/placeholder/100/100",
+      contributions: ["Technical Strategy", "Product Innovation", "Team Leadership"]
+    },
+    {
       name: "Open Source Community",
       role: "Contributors",
       description: "Amazing developers who help improve the platform through code contributions, bug reports, and feature suggestions.",
