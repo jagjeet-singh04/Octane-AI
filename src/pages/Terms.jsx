@@ -122,7 +122,7 @@ export default function TermsPage() {
                 </div>
                 <p className="text-gray-200 leading-relaxed">
                   These Terms of Service govern your use of Octane AI's website and all related products, 
-                  including Interview Helper, ThinkCode, and AI Resume Builder. By accessing or using our services, 
+                  including Interview Helper and ThinkCode. By accessing or using our services, 
                   you agree to be bound by these Terms. If you disagree with any part of the terms, you may not access our services.
                 </p>
               </div>

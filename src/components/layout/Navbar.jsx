@@ -10,7 +10,6 @@ export function Navbar() {
       <MenuItem setActive={setActive} active={active} item="Products">
         <div className="flex flex-col space-y-4 text-sm">
           <HoveredLink href="/thinkcode">ThinkCode</HoveredLink>
-          <HoveredLink href="/ai-resume">AI Resume Builder</HoveredLink>
           <HoveredLink href="/ai-interview">AI Interview Helper</HoveredLink>
         </div>
       </MenuItem>

@@ -9,7 +9,6 @@ export function Hero() {
 
   const features = [
     "AI-Powered Coding Platform",
-    "Smart Resume Builder", 
     "Interview AI Assistant",
     "Career Growth Engine"
   ];

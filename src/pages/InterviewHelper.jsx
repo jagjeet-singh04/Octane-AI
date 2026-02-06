@@ -8,6 +8,7 @@ import { CardContainer, CardBody, CardItem } from "../components/ui/3d-card.jsx"
 import { motion } from "framer-motion";
 // Lint guard: keep a reference so the strict unused-var rule (allowing ONLY UPPERCASE) doesn't flag the import
 const MOTION = motion;
+import { Terminal, TypingAnimation, AnimatedSpan } from "../components/ui/terminal.jsx";
 import {
   CheckIcon,
   CopyIcon,
@@ -217,6 +218,71 @@ export default function InterviewHelper() {
             </div>
           </div>
 
+          {/* Mock Interview Terminal */}
+          <section className="mt-12">
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-3xl mx-auto">
+              <h2 className="text-2xl font-bold mb-4 text-center">Mock Interview</h2>
+              <p className="text-gray-300 text-center mb-6">Spin up a quick practice session with realistic prompts.</p>
+              <Terminal className="shadow-xl">
+                <TypingAnimation>interview-helper start --role SDE --level junior</TypingAnimation>
+                <AnimatedSpan>✔ Session initialized</AnimatedSpan>
+                <TypingAnimation>next</TypingAnimation>
+                <AnimatedSpan>Q1: Tell me about yourself.</AnimatedSpan>
+                <AnimatedSpan>Tip: Use the STAR framework.</AnimatedSpan>
+                <TypingAnimation>next</TypingAnimation>
+                <AnimatedSpan>Q2: Implement two-sum (time vs space tradeoffs).</AnimatedSpan>
+                <AnimatedSpan>Hint: Hash map for O(n) lookup.</AnimatedSpan>
+                <TypingAnimation>end</TypingAnimation>
+                <AnimatedSpan>✔ Summary generated with strengths and next steps.</AnimatedSpan>
+              </Terminal>
+            </motion.div>
+          </section>
+
+          {/* Common Questions */}
+          <section className="mt-16">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { title: "Behavioral", desc: "Leadership, conflict, impact, ownership" },
+                { title: "Coding", desc: "Arrays, graphs, DP, complexity" },
+                { title: "System Design", desc: "Scalability, availability, consistency" },
+                { title: "Culture Fit", desc: "Why this company, values, collaboration" },
+              ].map((q, i) => (
+                <motion.div key={i} variants={fadeUp} className="p-6 rounded-2xl bg-white/6 border border-white/8">
+                  <h4 className="font-bold mb-2">{q.title}</h4>
+                  <p className="text-sm text-gray-300">{q.desc}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </section>
+
+          {/* Quick Tips (STAR) */}
+          <section className="mt-16">
+            <motion.div initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl mx-auto">
+              <div className="grid md:grid-cols-4 gap-4">
+                {[
+                  { k: "S", v: "Situation: Set the context briefly." },
+                  { k: "T", v: "Task: What was your responsibility?" },
+                  { k: "A", v: "Action: Steps you took and decisions made." },
+                  { k: "R", v: "Result: Quantify impact and learnings." },
+                ].map((t, i) => (
+                  <div key={i} className="p-4 rounded-xl bg-white/6 border border-white/8">
+                    <div className="text-lg font-bold mb-1">{t.k}</div>
+                    <div className="text-sm text-gray-300">{t.v}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </section>
+
+          {/* Practice Prompt */}
+          <section className="mt-16">
+            <motion.div initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl mx-auto">
+              <CodeBlock
+                title="Coding Prompt"
+                code={`Problem: Given an array of integers, return indices of the two numbers such that they add up to a target.\n\nFollow-up: Discuss tradeoffs of different approaches (brute force vs hash map).`}
+              />
+            </motion.div>
+          </section>
           {/* Resources + Secure Access Section with image on the left (equal, larger) */}
           <section id="resources" className="mt-16">
             <div className="grid lg:grid-cols-2 gap-10 items-stretch">
@@ -339,6 +405,33 @@ export default function InterviewHelper() {
           </div>
         </motion.div>
       )}
+    </div>
+  );
+}
+
+// Lightweight code block with copy button
+function CodeBlock({ title, code }) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      console.warn("Copy failed", err);
+    }
+  };
+  return (
+    <div className="rounded-xl border border-[#30363d] bg-[#0d1117] overflow-hidden">
+      <div className="px-4 py-2 bg-[#161b22] border-b border-[#30363d] flex items-center justify-between">
+        <span className="text-sm text-[#8b949e] font-mono">{title}</span>
+        <button onClick={copy} className="text-xs px-3 py-1 rounded-lg border border-[#30363d] text-[#c9d1d9] hover:bg-[#0b1117]">
+          {copied ? "Copied" : "Copy"}
+        </button>
+      </div>
+      <pre className="p-4 text-[#c9d1d9] font-mono text-sm whitespace-pre-wrap">
+{code}
+      </pre>
     </div>
   );
 }

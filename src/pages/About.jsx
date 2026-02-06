@@ -3,6 +3,7 @@ import { BackgroundGradientAnimation } from "../components/ui/background-gradien
 import { CardSpotlight } from "../components/ui/card-spotlight.jsx";
 import { CardContainer, CardBody, CardItem } from "../components/ui/3d-card.jsx";
 import { motion } from "framer-motion";
+import { Terminal, TypingAnimation, AnimatedSpan } from "../components/ui/terminal.jsx";
 import {
   TargetIcon,
   UsersIcon,
@@ -181,6 +182,29 @@ export default function AboutPage() {
             </motion.div>
           </motion.div>
 
+          {/* CLI Story */}
+          <section className="mb-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-3xl mx-auto"
+            >
+              <h2 className="text-3xl font-bold mb-4 text-center">Our Story (CLI)</h2>
+              <p className="text-gray-300 text-center mb-6">A quick peek at what drives Octane AI.</p>
+              <Terminal className="shadow-xl">
+                <TypingAnimation>octane --version</TypingAnimation>
+                <AnimatedSpan>✔ Octane AI v1.0.0</AnimatedSpan>
+                <TypingAnimation>octane mission</TypingAnimation>
+                <AnimatedSpan>Democratize interview prep for engineers worldwide.</AnimatedSpan>
+                <TypingAnimation>octane values</TypingAnimation>
+                <AnimatedSpan>Integrity • Innovation • Developer-first • Privacy</AnimatedSpan>
+                <TypingAnimation>octane roadmap</TypingAnimation>
+                <AnimatedSpan>Live practice • Deeper scoring • Community insights</AnimatedSpan>
+              </Terminal>
+            </motion.div>
+          </section>
+
           {/* Mission & Values */}
           <section className="mb-20">
             <motion.div
@@ -257,6 +281,35 @@ export default function AboutPage() {
                       </ul>
                     </CardBody>
                   </CardContainer>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          {/* Timeline */}
+          <section className="mb-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl font-bold mb-4">Milestones</h2>
+              <p className="text-gray-300 max-w-2xl mx-auto">Key moments in our journey so far.</p>
+            </motion.div>
+
+            <div className="max-w-4xl mx-auto space-y-6">
+              {[
+                { year: "2025", title: "Project Founded", desc: "Initial prototype and community validation." },
+                { year: "2025 Q4", title: "Private Beta", desc: "Real-world testing with early engineers." },
+                { year: "2026", title: "ThinkCode Launch", desc: "Live scoring and actionable insights." },
+              ].map((m, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-4 rounded-2xl bg-white/6 border border-white/8">
+                  <div className="flex items-center gap-4">
+                    <span className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold">{m.year}</span>
+                    <span className="font-semibold">{m.title}</span>
+                  </div>
+                  <p className="text-sm text-gray-300 mt-2">{m.desc}</p>
                 </motion.div>
               ))}
             </div>

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { BackgroundGradientAnimation } from "../components/ui/background-gradient-animation";
 import { CardSpotlight } from "../components/ui/card-spotlight.jsx";
 import { CardContainer, CardBody, CardItem } from "../components/ui/3d-card.jsx";
 import { motion } from "framer-motion";
+import { Terminal, TypingAnimation, AnimatedSpan } from "../components/ui/terminal.jsx";
 import {
   CodeIcon,
   BrainIcon,
@@ -152,6 +154,31 @@ export default function ThinkCodePage() {
     }
   ];
 
+  // Simple code block with copy button for a developer vibe
+  const CodeBlock = ({ title, code }) => {
+    const [copied, setCopied] = useState(false);
+    const copy = async () => {
+      try {
+        await navigator.clipboard.writeText(code);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+      } catch (_) {}
+    };
+    return (
+      <div className="rounded-xl border border-[#30363d] bg-[#0d1117] overflow-hidden">
+        <div className="px-4 py-2 bg-[#161b22] border-b border-[#30363d] flex items-center justify-between">
+          <span className="text-sm text-[#8b949e] font-mono">{title}</span>
+          <button onClick={copy} className="text-xs px-3 py-1 rounded-lg border border-[#30363d] text-[#c9d1d9] hover:bg-[#0b1117]">
+            {copied ? "Copied" : "Copy"}
+          </button>
+        </div>
+        <pre className="p-4 text-[#c9d1d9] font-mono text-sm whitespace-pre-wrap">
+{code}
+        </pre>
+      </div>
+    );
+  };
+
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (email) {
@@ -194,19 +221,39 @@ export default function ThinkCodePage() {
             className="text-center mb-20"
           >
             <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/8 border border-white/10 w-max mx-auto mb-6">
-              <RocketIcon className="w-4 h-4 text-blue-300" />
-              <span className="text-sm font-semibold text-blue-200">Launching Soon</span>
+              <RocketIcon className="w-4 h-4 text-green-300" />
+              <span className="text-sm font-semibold text-green-200">Now Live</span>
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
-              <span className="block bg-clip-text text-transparent bg-gradient-to-br from-white via-gray-200 to-gray-400">Think</span>
-              <span className="block bg-clip-text text-transparent bg-gradient-to-br from-green-400 to-cyan-500">Code</span>
+            <motion.h1 variants={fadeUp} className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-6">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 animate-gradient-x">ThinkCode</span>
             </motion.h1>
 
             <motion.p variants={fadeUp} className="text-xl text-gray-200 max-w-3xl mx-auto mb-8">
-              AI-powered code analysis platform that transforms how you write, review, and improve code. 
-              Get instant scores and actionable insights to elevate your coding skills.
+              AI-powered code analysis that transforms how you write, review, and improve code.
+              Now live with real-time scoring and actionable insights.
             </motion.p>
+
+            {/* Primary CTAs */}
+            <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-4 mb-12">
+              <a
+                href="https://think-code-ai.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-green-600 to-cyan-600 font-semibold shadow-lg transform hover:-translate-y-0.5 transition"
+                aria-label="Open ThinkCode website"
+              >
+                <SparklesIcon className="w-5 h-5" />
+                <span>Get Started</span>
+              </a>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/6 border border-white/10 font-semibold hover:bg-white/8 transition"
+              >
+                <UsersIcon className="w-5 h-5" />
+                <span>Contact Sales</span>
+              </Link>
+            </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-4 mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/20 text-green-300 border border-green-500/30">
@@ -243,8 +290,8 @@ export default function ThinkCodePage() {
                         <MailIcon className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <div className="font-bold">Get Early Access</div>
-                        <div className="text-sm text-gray-300">Be the first to try ThinkCode</div>
+                        <div className="font-bold">Stay Updated</div>
+                        <div className="text-sm text-gray-300">News, updates, and tips</div>
                       </div>
                     </div>
                     
@@ -262,7 +309,7 @@ export default function ThinkCodePage() {
                           type="submit"
                           className="px-6 py-3 rounded-2xl bg-gradient-to-r from-green-600 to-cyan-600 font-semibold shadow-lg transform hover:-translate-y-0.5 transition"
                         >
-                          Join Waitlist
+                          Subscribe
                         </button>
                       </div>
                       <p className="text-xs text-gray-400 text-center">
@@ -274,6 +321,58 @@ export default function ThinkCodePage() {
               )}
             </motion.div>
           </motion.div>
+
+          {/* Terminal Demo */}
+          <section className="mb-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-3xl mx-auto"
+            >
+             
+              <Terminal className="shadow-xl">
+                <TypingAnimation>octane-ai login</TypingAnimation>
+                <AnimatedSpan>✔ Authenticated as thinkcode</AnimatedSpan>
+                <TypingAnimation>thinkcode analyze --path src --lang js</TypingAnimation>
+                <AnimatedSpan>✔ Parsing project...</AnimatedSpan>
+                <AnimatedSpan>✔ Running AI analysis...</AnimatedSpan>
+                <AnimatedSpan>✔ Calculating scoring metrics...</AnimatedSpan>
+                <TypingAnimation>Success! Analysis completed. </TypingAnimation>
+              </Terminal>
+            </motion.div>
+          </section>
+
+          {/* Developer Quickstart */}
+          <section className="mb-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-5xl mx-auto"
+            >
+              <h2 className="text-3xl font-bold mb-4 text-center">Developer Quickstart</h2>
+              <p className="text-gray-300 text-center mb-8">CLI and API examples to get you going fast.</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                <CodeBlock
+                  title="CLI"
+                  code={`# Authenticate\nthinkcode login\n\n# Analyze your project\nthinkcode analyze --path src --lang js --output report.json`}
+                />
+                <CodeBlock
+                  title="API (curl)"
+                  code={`curl -X POST https://api.example.com/analyze \\n+  -H "Authorization: Bearer <token>" \\
+  -H "Content-Type: application/json" \\
+  -d '{"language":"js","source":"// your code here"}'`}
+                />
+              </div>
+              <div className="mt-6">
+                <CodeBlock
+                  title="JavaScript"
+                  code={`// pseudo example\nimport { analyze } from "@thinkcode/sdk";\n\nconst result = await analyze({\n  language: "js",\n  source: "function add(a,b){return a+b}"\n});\n\nconsole.log(result.score); // 87`}
+                />
+              </div>
+            </motion.div>
+          </section>
 
           {/* Features Section */}
           <section className="mb-20">
@@ -346,6 +445,47 @@ export default function ThinkCodePage() {
                       <p className="text-sm text-gray-300">{step.description}</p>
                     </CardBody>
                   </CardContainer>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          {/* Ethical AI Principles */}
+          <section className="mb-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl font-bold mb-4">Built on Ethical AI</h2>
+              <p className="text-gray-300 max-w-2xl mx-auto">
+                Privacy-first, secure by design, and transparent in outcomes.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                { title: 'Privacy-First', desc: 'Your code stays yours. We never train on your private repos.', Icon: LockIcon, color: 'from-emerald-500 to-teal-500' },
+                { title: 'Secure by Design', desc: 'Enterprise-grade security, encryption, and role-based access.', Icon: ShieldIcon, color: 'from-blue-500 to-cyan-500' },
+                { title: 'Transparent & Fair', desc: 'Clear scoring criteria with bias checks and audit trails.', Icon: EyeIcon, color: 'from-purple-500 to-pink-500' },
+              ].map((item, index) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <CardSpotlight>
+                    <div className="p-6 h-full">
+                      <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} mb-4`}>
+                        <item.Icon className="w-6 h-6" />
+                      </div>
+                      <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                      <p className="text-gray-300 text-sm">{item.desc}</p>
+                    </div>
+                  </CardSpotlight>
                 </motion.div>
               ))}
             </div>
@@ -533,7 +673,7 @@ export default function ThinkCodePage() {
               <div className="bg-gradient-to-br from-white/2 to-transparent p-8 rounded-3xl border border-white/8">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/8 border border-white/10 w-max mx-auto mb-4">
                   <SparklesIcon className="w-4 h-4 text-green-400" />
-                  <span className="text-sm font-semibold text-green-200">Limited Early Access</span>
+                  <span className="text-sm font-semibold text-green-200">Now Live</span>
                 </div>
 
                 <h3 className="text-2xl font-bold mb-4">Ready to Transform Your Code Quality?</h3>
@@ -557,7 +697,7 @@ export default function ThinkCodePage() {
                         className="inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-cyan-600 px-6 py-3 rounded-2xl font-semibold shadow-lg transform hover:-translate-y-0.5 transition"
                       >
                         <MailIcon className="w-5 h-5" />
-                        <span>Join Waitlist</span>
+                        <span>Subscribe</span>
                         <ArrowRightIcon className="w-5 h-5" />
                       </button>
                     </form>

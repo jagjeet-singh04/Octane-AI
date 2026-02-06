@@ -8,7 +8,6 @@ import { Footer } from './components/sections/Footer.jsx'
 import InterviewHelper from './pages/InterviewHelper.jsx'
 import HowToUse from './pages/HowToUse.jsx'
 import ThinkCode from './pages/ThinkCode.jsx'
-import AIResumeBuilder from './pages/AIResumeBuilder.jsx'
 import IndividualPricing from './pages/IndividualPricing.jsx'
 import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
@@ -37,7 +36,6 @@ function App() {
         <Route path="/ai-interview" element={<InterviewHelper />} />
         <Route path="/how-to-use" element={<HowToUse />} />
         <Route path="/thinkcode" element={<ThinkCode />} />
-        <Route path="/ai-resume" element={<AIResumeBuilder />} />
         <Route path="/pricing" element={<IndividualPricing />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

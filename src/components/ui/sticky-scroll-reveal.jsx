@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { useMotionValueEvent, useScroll, motion } from "motion/react";
 import { cn } from "../../lib/utils.js";
 
@@ -83,24 +84,53 @@ export const StickyScroll = ({
             {/* Left: active text - centered */}
             <div className="max-w-2xl text-center md:text-left">
               <div className={`${isMobile ? 'my-6 min-h-[200px]' : 'my-10 min-h-[300px]'} flex flex-col justify-center`}>
-                <MH2
-                  key={`title-${activeCard}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="text-2xl md:text-4xl font-extrabold text-slate-100 tracking-tight"
-                >
-                  {content[activeCard]?.title}
-                </MH2>
-                <MP
-                  key={`desc-${activeCard}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
-                  className="text-lg md:text-xl mt-4 max-w-md md:max-w-lg leading-relaxed text-slate-300"
-                >
-                  {content[activeCard]?.description}
-                </MP>
+                {content[activeCard]?.link ? (
+                  <Link
+                    to={content[activeCard].link}
+                    className="group inline-block cursor-pointer"
+                    aria-label={`Go to ${content[activeCard]?.title ?? 'item'}`}
+                  >
+                    <MH2
+                      key={`title-${activeCard}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="text-2xl md:text-4xl font-extrabold tracking-tight text-slate-100 group-hover:text-white group-hover:underline underline-offset-4"
+                    >
+                      {content[activeCard]?.title}
+                    </MH2>
+                    <MP
+                      key={`desc-${activeCard}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+                      className="text-lg md:text-xl mt-4 max-w-md md:max-w-lg leading-relaxed text-slate-300 group-hover:text-slate-200"
+                    >
+                      {content[activeCard]?.description}
+                    </MP>
+                  </Link>
+                ) : (
+                  <>
+                    <MH2
+                      key={`title-${activeCard}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="text-2xl md:text-4xl font-extrabold text-slate-100 tracking-tight"
+                    >
+                      {content[activeCard]?.title}
+                    </MH2>
+                    <MP
+                      key={`desc-${activeCard}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+                      className="text-lg md:text-xl mt-4 max-w-md md:max-w-lg leading-relaxed text-slate-300"
+                    >
+                      {content[activeCard]?.description}
+                    </MP>
+                  </>
+                )}
                 
                 {/* Mobile preview below text */}
                 <div className="md:hidden mt-6 w-full flex justify-center">

@@ -16,7 +16,6 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4">Products</h4>
             <ul className="space-y-2 text-gray-400">
               <li><a href="/thinkcode" className="hover:text-white transition-colors">ThinkCode</a></li>
-              <li><a href="/ai-resume" className="hover:text-white transition-colors">AI Resume Builder</a></li>
               <li><a href="/ai-interview" className="hover:text-white transition-colors">AI Interview Helper</a></li>
             </ul>
           </div>

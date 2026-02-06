@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import {
   IconCode,
-  IconFileText,
   IconMessageCircle,
   IconChartLine,
   IconRocket,
@@ -20,14 +19,6 @@ const features = [
     stats: "2.5x faster coding",
     gradient: "from-blue-500/20 to-cyan-500/20",
     delay: 0.1
-  },
-  {
-    title: "AI Resume Builder",
-    description: "Create ATS-optimized, role-specific resumes with intelligent content generation and design templates.",
-    Icon: IconFileText,
-    stats: "98% interview rate",
-    gradient: "from-purple-500/20 to-pink-500/20",
-    delay: 0.2
   },
   {
     title: "Interview AI Coach",

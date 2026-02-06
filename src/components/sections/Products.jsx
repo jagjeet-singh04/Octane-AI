@@ -1,15 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { StickyScroll } from "../ui/sticky-scroll-reveal.jsx";
 
 export function Products() {
   const products = [
-    {
-      title: "AI Resume Builder",
-      link: "/ai-resume",
-      thumbnail: "/ai-resume-demo.png",
-      description:
-        "Generate ATS-friendly, professional resumes instantly. Our AI tailors your resume for each role using optimized keywords,and role-specific phrasing. Choose from modern templates and get smart improvement to stand out in recruiter shortlists."
-    },
     {
       title: "ThinkCode",
       link: "/thinkcode",
@@ -19,32 +13,19 @@ export function Products() {
     },
     {
       title: "AI Interview Helper",
-      link: "/ai-interview",
+      link: "/thinkcode",
       thumbnail: "/ai-interview-demo.png",
       description:
         "Ace your next interview with confidence! The AI Interview Helper simulates real-world technical and HR interviews, providing instant feedback on your answers, tone, and coding logic. Practice personalized interview rounds, analyze your weak areas, and get performance insights to improve effectively."
-    },
-    {
-      title: "Code Review AI",
-      link: "/code-review",
-      thumbnail: "/thinkcode-demo.png",
-      description:
-        "Automate your code review process with AI precision. Code Review AI scans pull requests for logic flaws, security vulnerabilities, and performance bottlenecks. It provides consistent, actionable feedback—helping teams maintain code quality, security, and speed across projects."
-    },
-    {
-      title: "Resume Analyzer",
-      link: "/resume-analyzer",
-      thumbnail: "/ai-resume-demo.png",
-      description:
-        "Get an in-depth analysis of your resume's performance with the AI Resume Analyzer. It evaluates structure, keyword density, and skill relevance against job descriptions. Receive detailed reports on ATS compatibility, recruiter visibility, and practical tips to enhance your professional appeal."
     }
   ];
 
   const content = products.map((p) => ({
     title: p.title,
     description: p.description,
+    link: p.link,
     content: (
-      <a href={p.link} className="block h-full w-full">
+      <Link to={p.link} className="block h-full w-full cursor-pointer" aria-label={p.title}>
         <div className="relative h-full w-full">
           <img
             src={p.thumbnail}
@@ -53,7 +34,7 @@ export function Products() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
         </div>
-      </a>
+      </Link>
     )
   }));
 
